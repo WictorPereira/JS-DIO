@@ -1,8 +1,11 @@
 
 
+const numero = 2;
+const NumeroPar = (numero % 2) === 0;
 
-let variavel = 10 / 10;
 
-
-
-console.log(variavel)
+  if (NumeroPar) {
+    console.log('O Numero e Par');
+} else {
+    console.log('O Numero e Ímpar');
+}

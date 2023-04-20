@@ -8,9 +8,11 @@ Voce terá 3 variáveis. sendo elas:
 Imprimir no console o valor que sera gasto de combustível para realizar esta viagem.
 */
 
+/*TERMINAL : node .\primeiro-desafio\primeiro-desafio.js */ 
+
 const precoCombustivel = 5.79;
-const kmPorLitros = 12;
-const distanciaEmKm = 1580;
+const kmPorLitros = 10;
+const distanciaEmKm = 100;
 
 const litrosConsumidos = distanciaEmKm / kmPorLitros;
 const valorGasto = litrosConsumidos * precoCombustivel;
