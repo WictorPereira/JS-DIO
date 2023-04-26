@@ -1,3 +1,4 @@
+//Terminal: node '.\listas(arrays)\primeira-aula-arrays01.js'
 
 const notas = [];
 
