@@ -4,6 +4,7 @@
   "description": "Bootcamp DIO",
   "main": "aula.js",
   "scripts": {
+    "start":"npx tsc && node build/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
