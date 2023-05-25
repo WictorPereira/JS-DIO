@@ -1,4 +1,6 @@
-//salvar tudo : npm run start
+/*
+
+//salvar tudo : npm run start /npm run start:dev
 //Tipos primitivos:boolean, number, string
 let ligado:boolean = true;
 let nome:string = "wictor";
@@ -57,7 +59,7 @@ function addToHello(name:string): string{
     return `Hello ${name}`;
 }
 
-function CallToPhone(phone:number | string): number | string{ 
+function CallToPhone(phone:number ): number { 
     return phone;
 }
 
@@ -68,4 +70,130 @@ async function getDatabase(id:number):Promise<string> {
 let soma:number = addNumber (4, 7);
 console.log(soma);
 console.log(addToHello("Wictor"));
-console.log(CallToPhone(0987654321))
+console.log(CallToPhone(098761));
+
+//interfaces (type x interface)  readonly=nao pode modificar depois da criação
+type robot = {
+    readonly  id:number | string;
+    name:string;
+}
+
+interface robot2 {
+    readonly  id:number | string;
+    name:string;
+    sayHello():string;
+};
+
+const bot1:robot = {
+    id: 23,
+    name:"wilson",
+};
+
+const bot2:robot2 = {
+    id: 23,
+    name: "wilson",
+    sayHello: function (): string {
+        throw new Error("Function not implemented.");
+    }
+};
+
+console.log(bot1);
+console.log(bot2);
+
+class Pessoa implements robot2{
+    id: string | number;
+    name: string;
+
+    constructor(id:string|number, name:string){
+        this.id = id
+        this.name = name
+    }
+    sayHello(): string {
+        return  `hello i'm ${this.name} `;
+    }
+}
+
+const p = new Pessoa (1,"Batman")
+console.log(p.sayHello());
+
+//classes e data modifiers
+class Character {   
+  private  name?: string;  //a interrogação e algo nao obrigatório
+  public  stregth: number;
+  protected  skill: number;
+
+    constructor(name:string,stregth:number, skill:number){
+        this.name = name
+        this.stregth = stregth
+        this.skill = skill
+    }
+
+    attack():void{
+        console.log(`Attack with ${this.stregth} points`)
+    }
+    }
+    class magician extends Character {    //sub classes
+        magicPoints:number
+        constructor(name:string,stregth:number, skill:number,magicPoints:number) { 
+            super(name,stregth, skill)
+            this.magicPoints = magicPoints
+            
+        }
+    }
+const p1 = new Character("ken",10,98);
+const p2 = new magician("mago",6,40,100);
+(p1.attack());
+
+//generics
+
+function concatArray<T>(itens: T[]):T[]{
+    return new Array().concat(...itens);
+}
+
+const numArray = concatArray<number[]>([1, 5], [3]);
+const stgArray = concatArray<string[]>(["goku", "vegeta"], ["luffy"]);
+
+
+
+//console.log(numArray);
+console.log(stgArray);
+*/
+
+//decorators
+function apiVersion(version:string){
+    return (target:any) => {
+        Object.assign(target.prototype,{__version: version});
+    };
+}
+//attribute decorator
+function minLength(lenght:number){
+    return (target:any,Key:string)=> {
+       let _value = target[Key];
+       
+       const getter = ()=> _value ;
+       const setter = (value:string)=>{
+            if (value.length <lenght){
+                throw new Error ( ` Tamanho menor do que ${lenght}` )
+            }else{
+                _value = value;
+            }
+       }
+       Object.defineProperty(target,Key, {
+        get:getter,
+        set:setter
+       });
+    };
+}
+
+
+class Api {
+    @minLength(10)
+    name:string;
+
+    constructor (name:string){
+        this.name = name;
+    }
+}
+
+const api = new Api("Usuarios");
+console.log(api.name);
